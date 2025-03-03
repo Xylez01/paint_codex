@@ -71,12 +71,12 @@ class Typography {
           fontSize: 24,
         ),
         text: TextStyle(
-          color: Color(0xFFC1C1C1),
+          color: Color(0xffd3d4dc),
           fontFamily: _fontFamily,
           fontSize: 16,
         ),
         textBold: TextStyle(
-          color: Color(0xFFC1C1C1),
+          color: Color(0xffd3d4dc),
           fontFamily: _fontFamily,
           fontWeight: FontWeight.w700,
           fontSize: 16,

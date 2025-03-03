@@ -38,7 +38,8 @@ class _PaintCodexAppState extends State<PaintCodexApp> {
       title: 'Paint Codex',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.white,
+          seedColor: Color.fromARGB(255, 25,26,37),
+          surface: Color.fromARGB(255, 16, 16, 20),
           brightness: Brightness.dark,
         ),
         useMaterial3: true,
