@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:paint_codex/bootstrap.dart';
 import 'package:window_size/window_size.dart';
 
+import 'design_system/templates/page.dart';
+import 'paint_collection/overview/paint_collection_overview.dart';
+
 Future<void> main() async {
   if (Platform.isMacOS) {
     WidgetsFlutterBinding.ensureInitialized();
@@ -13,7 +16,7 @@ Future<void> main() async {
   }
 
   runApp(
-    bootstrap(
+    await bootstrap(
       child: PaintCodexApp(),
     ),
   );
@@ -27,14 +30,17 @@ class PaintCodexApp extends StatefulWidget {
 }
 
 class _PaintCodexAppState extends State<PaintCodexApp> {
-  var _pageIndex = 0;
+  var _pageIndex = 1;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Paint Codex',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.white,
+          brightness: Brightness.dark,
+        ),
         useMaterial3: true,
       ),
       home: Scaffold(
@@ -59,17 +65,14 @@ class _PaintCodexAppState extends State<PaintCodexApp> {
         body: AnimatedSwitcher(
           duration: Duration(milliseconds: 100),
           child: switch (_pageIndex) {
-            0 => Center(
-                key: ValueKey("schemes"),
-                child: Text("Schemes"),
-              ),
-            1 => Center(
-                key: ValueKey("paints"),
-                child: Text("Paints"),
-              ),
-            2 => Center(
-                key: ValueKey("about"),
-                child: Text("About"),
+            0 => PageTemplate(
+              title: 'Schemes',
+              slivers: [],
+            ),
+            1 => PaintCollectionOverview(),
+            2 => PageTemplate(
+                title: 'About',
+                slivers: [],
               ),
             _ => throw UnimplementedError(),
           },
