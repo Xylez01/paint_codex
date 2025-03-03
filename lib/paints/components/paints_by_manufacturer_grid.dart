@@ -55,15 +55,31 @@ class PaintsByManufacturerGrid extends StatelessWidget {
                           ),
                           child: Padding(
                             padding: EdgeInsets.all(primitives.sizes.xxs),
-                            child: Text(
-                              paint.name,
-                              style: primitives.typography.text.copyWith(
-                                fontSize: 12,
-                                color: paint.color.computeLuminance() > 0.5
-                                    ? Colors.black
-                                    : Colors.white
-                              ),
-                              textAlign: TextAlign.center,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  paint.name,
+                                  style: primitives.typography.text.copyWith(
+                                    fontSize: 12,
+                                    color: paint.color.computeLuminance() > 0.5
+                                        ? Colors.black
+                                        : Colors.white
+                                  ),
+                                  maxLines: 3,
+                                  textAlign: TextAlign.center,
+                                ),
+                                Text(
+                                  paint.manufacturerId.id,
+                                  style: primitives.typography.text.copyWith(
+                                      fontSize: 10,
+                                      color: paint.color.computeLuminance() > 0.5
+                                          ? Colors.black
+                                          : Colors.white
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
                             ),
                           ),
                         ),
