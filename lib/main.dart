@@ -1,0 +1,80 @@
+import 'dart:io';
+
+import 'package:flutter/material.dart';
+import 'package:paint_codex/bootstrap.dart';
+import 'package:window_size/window_size.dart';
+
+Future<void> main() async {
+  if (Platform.isMacOS) {
+    WidgetsFlutterBinding.ensureInitialized();
+
+    final window = await getWindowInfo();
+    setWindowFrame(Rect.fromCenter(center: window.frame.center, width: 428, height: 926));
+  }
+
+  runApp(
+    bootstrap(
+      child: PaintCodexApp(),
+    ),
+  );
+}
+
+class PaintCodexApp extends StatefulWidget {
+  const PaintCodexApp({super.key});
+
+  @override
+  State<PaintCodexApp> createState() => _PaintCodexAppState();
+}
+
+class _PaintCodexAppState extends State<PaintCodexApp> {
+  var _pageIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Paint Codex',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      home: Scaffold(
+        bottomNavigationBar: NavigationBar(
+          destinations: [
+            NavigationDestination(
+              label: "Schemes",
+              icon: Icon(Icons.pie_chart_outline),
+            ),
+            NavigationDestination(
+              label: "Paints",
+              icon: Icon(Icons.book_outlined),
+            ),
+            NavigationDestination(
+              label: "About",
+              icon: Icon(Icons.info_outline),
+            ),
+          ],
+          selectedIndex: _pageIndex,
+          onDestinationSelected: (index) => setState(() => _pageIndex = index),
+        ),
+        body: AnimatedSwitcher(
+          duration: Duration(milliseconds: 100),
+          child: switch (_pageIndex) {
+            0 => Center(
+                key: ValueKey("schemes"),
+                child: Text("Schemes"),
+              ),
+            1 => Center(
+                key: ValueKey("paints"),
+                child: Text("Paints"),
+              ),
+            2 => Center(
+                key: ValueKey("about"),
+                child: Text("About"),
+              ),
+            _ => throw UnimplementedError(),
+          },
+        ),
+      ),
+    );
+  }
+}
