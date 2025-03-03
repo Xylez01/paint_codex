@@ -10,7 +10,7 @@ _$PaintCollectionImpl _$$PaintCollectionImplFromJson(
         Map<String, dynamic> json) =>
     _$PaintCollectionImpl(
       paints: (json['paints'] as List<dynamic>)
-          .map((e) => const PaintIdJsonConverter().fromJson(e as String))
+          .map((e) => const PaintIdJsonConverter().fromJson((e as num).toInt()))
           .toList(),
     );
 

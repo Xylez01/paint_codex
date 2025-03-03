@@ -26,7 +26,7 @@ mixin _$Paint {
   String get name => throw _privateConstructorUsedError;
   String get manufacturer => throw _privateConstructorUsedError;
   Color get color => throw _privateConstructorUsedError;
-  String get barcode => throw _privateConstructorUsedError;
+  int? get barcode => throw _privateConstructorUsedError;
   String get type => throw _privateConstructorUsedError;
   int get hue => throw _privateConstructorUsedError;
   int get saturation => throw _privateConstructorUsedError;
@@ -54,7 +54,7 @@ abstract class $PaintCopyWith<$Res> {
       String name,
       String manufacturer,
       Color color,
-      String barcode,
+      int? barcode,
       String type,
       int hue,
       int saturation,
@@ -83,7 +83,7 @@ class _$PaintCopyWithImpl<$Res, $Val extends Paint>
     Object? name = null,
     Object? manufacturer = null,
     Object? color = null,
-    Object? barcode = null,
+    Object? barcode = freezed,
     Object? type = null,
     Object? hue = null,
     Object? saturation = null,
@@ -112,10 +112,10 @@ class _$PaintCopyWithImpl<$Res, $Val extends Paint>
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as Color,
-      barcode: null == barcode
+      barcode: freezed == barcode
           ? _value.barcode
           : barcode // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int?,
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -157,7 +157,7 @@ abstract class _$$PaintImplCopyWith<$Res> implements $PaintCopyWith<$Res> {
       String name,
       String manufacturer,
       Color color,
-      String barcode,
+      int? barcode,
       String type,
       int hue,
       int saturation,
@@ -184,7 +184,7 @@ class __$$PaintImplCopyWithImpl<$Res>
     Object? name = null,
     Object? manufacturer = null,
     Object? color = null,
-    Object? barcode = null,
+    Object? barcode = freezed,
     Object? type = null,
     Object? hue = null,
     Object? saturation = null,
@@ -213,10 +213,10 @@ class __$$PaintImplCopyWithImpl<$Res>
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as Color,
-      barcode: null == barcode
+      barcode: freezed == barcode
           ? _value.barcode
           : barcode // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int?,
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -250,7 +250,8 @@ class __$$PaintImplCopyWithImpl<$Res>
 @JsonSerializable(converters: [
   PaintIdJsonConverter(),
   ManufacturerIdJsonConverter(),
-  ColorConverter()
+  ColorConverter(),
+  IntToBoolConverter()
 ])
 class _$PaintImpl implements _Paint {
   const _$PaintImpl(
@@ -282,7 +283,7 @@ class _$PaintImpl implements _Paint {
   @override
   final Color color;
   @override
-  final String barcode;
+  final int? barcode;
   @override
   final String type;
   @override
@@ -365,7 +366,7 @@ abstract class _Paint implements Paint {
       required final String name,
       required final String manufacturer,
       required final Color color,
-      required final String barcode,
+      required final int? barcode,
       required final String type,
       required final int hue,
       required final int saturation,
@@ -387,7 +388,7 @@ abstract class _Paint implements Paint {
   @override
   Color get color;
   @override
-  String get barcode;
+  int? get barcode;
   @override
   String get type;
   @override

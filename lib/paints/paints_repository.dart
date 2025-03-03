@@ -4,22 +4,20 @@ import 'package:flutter/services.dart';
 import 'package:paint_codex/paints/paint.dart';
 
 class PaintsRepository {
-  late final List<Paint> _paints;
+  PaintsRepository._(this._paints);
 
-  bool _initialized = false;
+  static Future<PaintsRepository> create() async {
+    final content = await rootBundle.loadString('assets/paints.json');
 
-  Future<List<Paint>> getAll() async {
-    if (!_initialized) {
-      final content = await rootBundle.loadString('assets/paints.json');
+    final paints = (jsonDecode(content) as List<Object?>)
+        .map((paintAsJson) => paintAsJson as Map<String, Object?>)
+        .map(Paint.fromJson)
+        .toList(growable: false);
 
-      _paints = (jsonDecode(content) as List<Object?>)
-          .map((paintAsJson) => paintAsJson as Map<String, Object?>)
-          .map(Paint.fromJson)
-          .toList(growable: false);
-
-      _initialized = true;
-    }
-
-    return _paints;
+    return PaintsRepository._(paints);
   }
+
+  final List<Paint> _paints;
+
+  List<Paint> get paints => _paints;
 }

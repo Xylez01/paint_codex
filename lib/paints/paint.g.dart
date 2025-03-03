@@ -7,19 +7,20 @@ part of 'paint.dart';
 // **************************************************************************
 
 _$PaintImpl _$$PaintImplFromJson(Map<String, dynamic> json) => _$PaintImpl(
-      id: const PaintIdJsonConverter().fromJson(json['id'] as String),
+      id: const PaintIdJsonConverter().fromJson((json['id'] as num).toInt()),
       manufacturerId: const ManufacturerIdJsonConverter()
           .fromJson(json['manufacturer_id'] as String),
       name: json['name'] as String,
       manufacturer: json['manufacturer'] as String,
       color: const ColorConverter().fromJson(json['color'] as String),
-      barcode: json['barcode'] as String,
+      barcode: (json['barcode'] as num?)?.toInt(),
       type: json['type'] as String,
       hue: (json['hue'] as num).toInt(),
       saturation: (json['saturation'] as num).toInt(),
       value: (json['value'] as num).toInt(),
-      metallic: json['metallic'] as bool,
-      wash: json['wash'] as bool,
+      metallic: const IntToBoolConverter()
+          .fromJson((json['metallic'] as num).toInt()),
+      wash: const IntToBoolConverter().fromJson((json['wash'] as num).toInt()),
     );
 
 Map<String, dynamic> _$$PaintImplToJson(_$PaintImpl instance) =>
@@ -35,6 +36,6 @@ Map<String, dynamic> _$$PaintImplToJson(_$PaintImpl instance) =>
       'hue': instance.hue,
       'saturation': instance.saturation,
       'value': instance.value,
-      'metallic': instance.metallic,
-      'wash': instance.wash,
+      'metallic': const IntToBoolConverter().toJson(instance.metallic),
+      'wash': const IntToBoolConverter().toJson(instance.wash),
     };

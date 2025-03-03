@@ -2,8 +2,8 @@ import 'package:flutter/widgets.dart';
 
 import '../primitives.dart';
 
-class Header extends StatelessWidget {
-  const Header({required this.title, super.key});
+class SectionHeader extends StatelessWidget {
+  const SectionHeader({required this.title, super.key});
 
   final String title;
 
@@ -15,14 +15,14 @@ class Header extends StatelessWidget {
       padding: EdgeInsets.only(
         top: primitives.sizes.m,
         bottom: primitives.sizes.xxs,
-        left: 0,
-        right: primitives.sizes.m,
+        left: primitives.sizes.s,
+        right: primitives.sizes.s,
       ),
       child: SizedBox(
         width: double.infinity,
         child: Text(
           title,
-          style: primitives.typography.header,
+          style: primitives.typography.text,
           textAlign: TextAlign.start,
         ),
       ),

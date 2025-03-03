@@ -1,7 +1,17 @@
 part of 'paint.dart';
 
-abstract class _IdConverter<T extends StringId> implements JsonConverter<T, String> {
-  const _IdConverter();
+abstract class _IntIdConverter<T extends IntId> implements JsonConverter<T, int> {
+  const _IntIdConverter();
+
+  @override
+  T fromJson(int json);
+
+  @override
+  int toJson(T object) => object.id;
+}
+
+abstract class _StringIdConverter<T extends StringId> implements JsonConverter<T, String> {
+  const _StringIdConverter();
 
   @override
   T fromJson(String json);
@@ -10,14 +20,14 @@ abstract class _IdConverter<T extends StringId> implements JsonConverter<T, Stri
   String toJson(T object) => object.id;
 }
 
-class PaintIdJsonConverter extends _IdConverter<PaintId> {
+class PaintIdJsonConverter extends _IntIdConverter<PaintId> {
   const PaintIdJsonConverter();
 
   @override
-  PaintId fromJson(String json) => PaintId(json);
+  PaintId fromJson(int json) => PaintId(json);
 }
 
-class ManufacturerIdJsonConverter extends _IdConverter<ManufacturerId> {
+class ManufacturerIdJsonConverter extends _StringIdConverter<ManufacturerId> {
   const ManufacturerIdJsonConverter();
 
   @override
@@ -39,4 +49,14 @@ class ColorConverter implements JsonConverter<Color, String> {
 
   @override
   String toJson(Color object) => object.toString();
+}
+
+class IntToBoolConverter implements JsonConverter<bool, int> {
+  const IntToBoolConverter();
+
+  @override
+  bool fromJson(int json) => json == 1;
+
+  @override
+  int toJson(bool object) => object ? 1 : 0;
 }
