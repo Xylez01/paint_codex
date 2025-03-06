@@ -1,6 +1,8 @@
 import 'dart:ui';
 
+import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:flutter/widgets.dart' show HSLColor;
 
 part 'paint.parsing.dart';
 
@@ -69,4 +71,17 @@ abstract class Paint with _$Paint {
   }) = _Paint;
 
   factory Paint.fromJson(Map<String, Object?> json) => _$PaintFromJson(json);
+}
+
+extension GroupPaintsByManufacturer on List<Paint> {
+  PaintsByManufacturer get groupedByManufacturer {
+    final manufacturers = map((paint) => paint.manufacturer).toSet();
+
+    return {
+      for (final manufacturer in manufacturers)
+        manufacturer: where((paint) => paint.manufacturer == manufacturer)
+            .sortedBy<num>((paint) => HSLColor.fromColor(paint.color).hue)
+            .toList(growable: false),
+    };
+  }
 }

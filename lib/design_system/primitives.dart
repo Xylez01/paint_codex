@@ -65,18 +65,15 @@ class Typography {
 
   factory Typography.build() => Typography(
         header: TextStyle(
-          color: Color(0xFFFFFFFF),
           fontFamily: _fontFamily,
           fontWeight: FontWeight.w700,
           fontSize: 24,
         ),
         text: TextStyle(
-          color: Color(0xffd3d4dc),
           fontFamily: _fontFamily,
           fontSize: 16,
         ),
         textBold: TextStyle(
-          color: Color(0xffd3d4dc),
           fontFamily: _fontFamily,
           fontWeight: FontWeight.w700,
           fontSize: 16,
