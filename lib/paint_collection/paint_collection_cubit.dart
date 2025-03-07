@@ -41,19 +41,23 @@ class PaintsCollectionCubit extends Cubit<PaintCollectionState> {
             paintCollectionRepository: _paintCollectionRepository,
             paintsRepository: _paintsRepository,
           ),
-        );
+        ) {
+    _paintCollectionRepository.addListener(_onCollectionUpdated);
+  }
 
   final PaintsRepository _paintsRepository;
   final PaintCollectionRepository _paintCollectionRepository;
 
-  void add(PaintId paintId) {
-    _paintCollectionRepository.add(paintId);
+  void _onCollectionUpdated() => emit(
+        PaintCollectionState.fromState(
+          paintCollectionRepository: _paintCollectionRepository,
+          paintsRepository: _paintsRepository,
+        ),
+      );
 
-    emit(
-      PaintCollectionState.fromState(
-        paintCollectionRepository: _paintCollectionRepository,
-        paintsRepository: _paintsRepository,
-      ),
-    );
+  @override
+  Future<void> close() {
+    _paintCollectionRepository.removeListener(_onCollectionUpdated);
+    return super.close();
   }
 }

@@ -13,7 +13,7 @@ class Header extends StatelessWidget {
 
     return Padding(
       padding: EdgeInsets.only(
-        top: primitives.sizes.m,
+        top: primitives.sizes.xxs,
         bottom: primitives.sizes.xxs,
         left: 0,
         right: primitives.sizes.m,

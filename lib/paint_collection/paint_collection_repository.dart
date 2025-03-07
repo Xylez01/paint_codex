@@ -1,12 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/widgets.dart';
 import 'package:paint_codex/paint_collection/paint_collection.dart';
 import 'package:paint_codex/paints/paint.dart';
 
 import '../persistent_storage.dart';
 
-class PaintCollectionRepository {
+class PaintCollectionRepository with ChangeNotifier {
   PaintCollectionRepository._(this._storage, this._paintCollection);
 
   static Future<PaintCollectionRepository> create({required PersistentStorageBuilder buildStorage}) async {
@@ -27,7 +28,7 @@ class PaintCollectionRepository {
 
   void add(PaintId paintId) {
     _paintCollection = _paintCollection.copyWith(
-      paints: [..._paintCollection.paints, paintId].toList(growable: false),
+      paints: {..._paintCollection.paints, paintId}.toList(growable: false),
     );
 
     _persist();
@@ -43,5 +44,6 @@ class PaintCollectionRepository {
 
   void _persist() {
     unawaited(_storage.write(jsonEncode(_paintCollection.toJson())));
+    notifyListeners();
   }
 }

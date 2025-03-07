@@ -5,6 +5,7 @@ import 'package:paint_codex/paint_collection/paint_collection_cubit.dart';
 import 'package:paint_codex/paint_collection/paint_collection_repository.dart';
 import 'package:paint_codex/paints/paints_cubit.dart';
 import 'package:paint_codex/paints/paints_repository.dart';
+import 'package:provider/provider.dart';
 
 import 'persistent_storage.dart';
 
@@ -14,7 +15,7 @@ Future<Widget> bootstrap({required Widget child}) async {
       RepositoryProvider.value(
         value: await PaintsRepository.create(),
       ),
-      RepositoryProvider.value(
+      ChangeNotifierProvider.value(
         value: await PaintCollectionRepository.create(
           buildStorage: ({required String key}) => PersistentStorage.create(key: key),
         ),
